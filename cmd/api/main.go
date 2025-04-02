@@ -1,10 +1,11 @@
 package main
 
 import (
-	"d:/lms-backend/config" // Import Config Database
+	// Import Config Database
 	"fmt"
 	"net/http"
 
+	"github.com/Hattaseakhiaw/lms-backend/config"
 	_ "github.com/lib/pq" // Import Driver PostgreSQL
 )
 
