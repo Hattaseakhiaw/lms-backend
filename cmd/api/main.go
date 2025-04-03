@@ -1,19 +1,22 @@
 package main
 
 import (
-	// Import Config Database
 	"fmt"
-	"net/http"
 
 	"github.com/Hattaseakhiaw/lms-backend/config"
-	_ "github.com/lib/pq" // Import Driver PostgreSQL
+	"github.com/Hattaseakhiaw/lms-backend/models"
+	"github.com/Hattaseakhiaw/lms-backend/routes"
 )
 
 func main() {
 	// เชื่อมต่อฐานข้อมูล
 	config.ConnectDB()
 
+	// ให้ GORM สร้างตารางอัตโนมัติ
+	config.DB.AutoMigrate(&models.User{}, &models.Leave{}, &models.LeaveHistory{}, &models.LeaveBalance{})
+
 	// เริ่ม API Server
+	r := routes.SetupRouter()
 	fmt.Println("🚀 LMS API Server is running on port 8080...")
-	http.ListenAndServe(":8080", nil)
+	r.Run(":8080")
 }
