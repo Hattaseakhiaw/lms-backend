@@ -1,11 +1,13 @@
+// main.go
+
 package main
 
 import (
 	"fmt"
 
 	"github.com/Hattaseakhiaw/lms-backend/config"
-	"github.com/Hattaseakhiaw/lms-backend/models"
-	"github.com/Hattaseakhiaw/lms-backend/routes"
+	"github.com/Hattaseakhiaw/lms-backend/internal/models"
+	"github.com/Hattaseakhiaw/lms-backend/internal/routes"
 )
 
 func main() {
@@ -13,7 +15,12 @@ func main() {
 	config.ConnectDB()
 
 	// ให้ GORM สร้างตารางอัตโนมัติ
-	config.DB.AutoMigrate(&models.User{}, &models.Leave{}, &models.LeaveHistory{}, &models.LeaveBalance{})
+	config.DB.AutoMigrate(
+		&models.User{},
+		&models.Leave{},
+		&models.LeaveHistory{},
+		&models.LeaveBalance{},
+	)
 
 	// เริ่ม API Server
 	r := routes.SetupRouter()
